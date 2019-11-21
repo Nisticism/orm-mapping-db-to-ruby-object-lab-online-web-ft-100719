@@ -46,7 +46,7 @@ class Student
       WHERE grade = 9
     SQL
  
-    DB[:conn].execute(sql, name).map do |row|
+    DB[:conn].execute(sql).map do |row|
       self.new_from_db(row)
     end
   end
@@ -58,7 +58,7 @@ class Student
       WHERE grade < 12
     SQL
  
-    DB[:conn].execute(sql, name).map do |row|
+    DB[:conn].execute(sql).map do |row|
       self.new_from_db(row)
     end
   end
@@ -68,10 +68,10 @@ class Student
       SELECT *
       FROM students
       WHERE grade = 10
-      LIMIT #{count}
+      LIMIT ?
     SQL
  
-    DB[:conn].execute(sql, name).map do |row|
+    DB[:conn].execute(sql, count).map do |row|
       self.new_from_db(row)
     end
   end
@@ -83,7 +83,7 @@ class Student
       WHERE grade = 10
     SQL
  
-    DB[:conn].execute(sql, name).map do |row|
+    DB[:conn].execute(sql).map do |row|
       self.new_from_db(row)
     end.first
   end
@@ -92,10 +92,10 @@ class Student
     sql = <<-SQL
       SELECT *
       FROM students
-      WHERE grade = #{grade}
+      WHERE grade = ?
     SQL
  
-    DB[:conn].execute(sql, name).map do |row|
+    DB[:conn].execute(sql, grade).map do |row|
       self.new_from_db(row)
     end
   end
